@@ -19,24 +19,57 @@
   </div>
 
   <div id="companies">
-    <button onclick="runScan()">Run Scan</button>
+    <button onclick="scanAll()">Run Scan</button>
+  </div>
+
+  <div id="articles">
+
   </div>
 
   <script>
     let articleData = [];
 
-    async function runScan() {
-      const res = await fetch('/viewer');
-      articleData = await res.json();
+    async function scanOne() {
+      const res = await fetch('https://jetscan-fcaf0aedc4e1.herokuapp.com/scan');
+      let jsoned = await res.json();
+
       console.log(articleData)
-      renderArticles();
+      renderArticles(articleData);
+    }
+
+    async function scanAll() {
+      console.log('scanning');
+      const res = await fetch('https://jetscan-fcaf0aedc4e1.herokuapp.com/scan-all');
+      let jsoned = await res.json();
+      articleData = jsoned.entries;
+      console.log(articleData)
+      renderArticles(articleData);
     }
 
     function renderArticles(data = articleData) {
-      console.log(data);
-    }
+      const container = document.getElementById('articles');
+      container.innerHTML = '';
 
-    runScan();
+      data.forEach(group => {
+        const { company, source, articles } = group;
+
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'company-group';
+
+        const title = document.createElement('div');
+        title.className = 'company-title';
+        title.textContent = company;
+        groupDiv.appendChild(title);
+
+        articles.forEach(article => {
+          
+        })
+
+        container.appendChild(groupDiv);
+
+
+      })
+    }
   </script>
 </body>
 </html>
