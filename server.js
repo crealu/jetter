@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const { MongoClient } = require('mongodb');
+const { saveArticles } = require('./routes/publish');
 
 const app = express();
 const port = process.env.PORT || 7700;
@@ -9,35 +10,6 @@ dotenv.config({ path: '.env' });
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
-async function saveArticles(data, response) {
-  const uri = process.env.MONGO_URI;
-  const client = new MongoClient(uri);
-
-  try {
-    await client.connect();
-    const db = client.db('jetinfo');
-    const co = db.collection('articles');
-
-    const cb = (err, result) => { 
-      if (err) {
-        return console.log(err)
-      }
-      response.send({message: 'submitted'})
-    }
-
-    await co.insertMany(data, cb)
-    // await co.insertOne(data, (err, result) => {
-    //   if (err) { 
-    //   	return console.log(err) 
-    //   }
-    //   // res.send('submitted');
-    //   // res.redirect('/create');
-    // })
-  } finally {
-    await client.close();
-	}
-}
 
 async function sendScanned(response) {
   const uri = process.env.MONGO_URI;
