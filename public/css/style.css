@@ -1,3 +1,9 @@
+:root {
+  --blue-1: #04519b;
+  --blue-2: #03386a;
+  --blue-3: #e6f1f3;
+}
+
 body { 
   font-family: sans-serif; 
   padding: 0px;
@@ -43,12 +49,30 @@ h3 {
   font-size: 30px;
 }
 
+
+.company-group {
+  margin-bottom: 20px;
+}
+
+.company-title {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin: 1em 0 0.5em;
+  background: var(--blue-3);
+  padding: 10px 0px;
+}
+
 .row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   border-bottom: 1px solid #ccc;
   padding: 8px 0;
+  overflow-x: hidden;
+}
+
+.company-name {
+  width: 100px;
 }
 
 .row-blue {
@@ -57,6 +81,8 @@ h3 {
 
 .title {
   width: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .info {
@@ -67,7 +93,11 @@ h3 {
 }
 
 .date {
-  width: 100px;
+  width: 90px;
+}
+
+.category-select {
+  margin-right: 10px;
 }
 
 .article {
@@ -79,20 +109,52 @@ h3 {
   gap: 10px;
 }
 
-.company-group {
-  margin-bottom: 20px;
+.title-group {
+  display: grid;
+  grid-template-columns: 36px calc(100% - 36px);
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: start;
 }
 
-.company-title {
-  font-weight: bold;
-  font-size: 1.2em;
-  margin: 1em 0 0.5em;
+.title-group p {
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow-x: auto;
 }
 
-button {
+.title-group a {
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.title-group button {
+  background: none;
+  border: 2px solid lightgray;
+  border-radius: 4px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.title-group button:hover {
+  background: lightgray;
+}
+
+.copy-btn {
+  width: 100%;
+}
+
+/*button {
   margin-top: 20px;
 }
-
+*/
 #filters {
   position: relative;
   margin: 0 auto;

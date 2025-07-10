@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get('/', (req, res) => {
-	res.send('working');
+  res.sendFile('index.html', {root: './public'});
 });
 
 app.get('/admin', (req, res) => {
