@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/admin', (req, res) => {
-  res.sendFile('publisher.html', {root: './public'});
+  res.sendFile('admin.html', {root: './public'});
 });
 
 app.get('/news', (req, res) => {
