@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config({ path: '.env' });
 
 module.exports = {
-  saveScanned: async (response) => {
+  readScanned: async (response) => {
     const uri = process.env.MONGO_URI;
     const client = new MongoClient(uri);
 
