@@ -12,8 +12,6 @@ module.exports = {
 	    const db = client.db('jetinfo');
 	    const co = db.collection('articles');
 
-	    console.log(data);
-
 	    const cb = (err, result) => { 
 	      if (err) {
 	        return console.log(err)
@@ -21,14 +19,7 @@ module.exports = {
 	      response.send({message: 'submitted'})
 	    }
 
-	    // await co.insertMany(data, cb)
-	    // await co.insertOne(data, (err, result) => {
-	    //   if (err) { 
-	    //   	return console.log(err) 
-	    //   }
-	    //   // res.send('submitted');
-	    //   // res.redirect('/create');
-	    // })
+	    await co.insertMany(data, cb)
 	  } finally {
 	    await client.close();
 		}
