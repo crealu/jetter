@@ -46,6 +46,33 @@
       renderArticles(articleData);
     }
 
+    function renderArticleRow(article) {
+      const row = document.createElement('div');
+      row.className = 'row';
+
+      const info = document.createElement('div');
+      info.className = 'info';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.checked = true;
+
+      const date = document.createElement('span');
+      date.textContent = new Date(article.date).toLocaleDateString();
+      date.className = 'date'
+
+      const link = document.createElement('a');
+      // link.href = article.link.startsWith("http") ? article.link : source + article.link;
+      link.href = article.link;
+      link.textContent = article.title;
+      link.target = '_blank';
+
+      info.append(date, link);
+      row.append(info);
+
+      return row;
+    }
+
     function renderArticles(data = articleData) {
       const container = document.getElementById('articles');
       container.innerHTML = '';
@@ -62,12 +89,11 @@
         groupDiv.appendChild(title);
 
         articles.forEach(article => {
-          
-        })
+          const row = renderArticleRow(article);
+          groupDiv.appendChild(row);
+        });
 
         container.appendChild(groupDiv);
-
-
       })
     }
   </script>
