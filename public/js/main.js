@@ -14,15 +14,16 @@ async function getScan() {
 }
 
 async function scan(i) {
-  console.log('Scanning ' + companies[i].company);
   const { website } = companies[i];
+  const filterDate = document.getElementById('filter-date').value;
 
   const theBody = { 
-    companyIndex: i,
-    website: website
+    index: i,
+    website: website,
+    date: filterDate
   };
 
-  console.log(theBody);
+  console.log('Scanning ' + companies[i].company, theBody);
 
   const options = {
     method: 'POST',
