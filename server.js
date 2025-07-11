@@ -29,6 +29,10 @@ app.get('/scan', (req, res) => {
   res.sendFile('scan.html', {root: './public'});
 });
 
+app.get('/companies', (req, res) => {
+  res.sendFile('companies.json', {root: './public/data'});
+})
+
 app.get('/scanner', (req, res) => {
   res.send('scan');
 });

@@ -2,37 +2,26 @@ const tags = ['Fin', 'Info', 'Conf', 'Sales', 'Met', 'MA', 'Org'];
 let articleData = [];
 let companies = [];
 
-let one = 'https://jetscan-fcaf0aedc4e1.herokuapp.com/scan-one';
-let url = 'https://jetscan-fcaf0aedc4e1.herokuapp.com/scan';
-
-async function getScan() {
-  await fetch(url)
-    .then(res => res.json())
-    .then(data => { console.log(data) })
-    .catch(err => { console.log(err) })
-}
-
-async function scan(i) {
-  console.log('Scanning ' + companies[i].company);
-  const { website } = companies[i];
-
-  const theBody = { 
-    companyIndex: i,
-    website: website,
-  };
-
-  console.log(theBody);
+async function scanSelect(n) {
+  console.log('Scanning ' + companData[n].company);
 
   const options = {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(theBody)
+    body: JSON.stringify({number: n})
   }
 
-  await fetch(one, options)
+  await fetch('https://jetscan-fcaf0aedc4e1.herokuapp.com/scan-one', options)
     .then(res => res.json())
-    .then(data => { renderArticles(i, data.articles) })
+    .then(data => { console.lo(data) })
     .catch(err => { console.log(err) })
+}
+
+async function fetchArticles() {
+  const res = await fetch('/publisher');
+  articleData = await res.json();
+  console.log(articleData)
+  renderArticles();
 }
 
 async function fetchCompanies() {
@@ -42,7 +31,7 @@ async function fetchCompanies() {
   renderCompanies();
 }
 
-function renderArticleRow(companyName, article) {
+function renderArticleRow(companyName, source, article) {
   const row = document.createElement('div');
   row.className = 'row';
 
@@ -97,23 +86,12 @@ function renderArticleRow(companyName, article) {
   return row;
 }
 
-function renderArticles(i, articles) {
-  console.log(articles);
-
-  const groupDiv = document.getElementsByClassName('company-group')[i]
-
-  articles.forEach(article => {
-    const row = renderArticleRow(companies[i].company, article);
-    groupDiv.appendChild(row);
-  });
-}
-
 function renderCompanies(data = companies) {
   const container = document.getElementById('articles');
   container.innerHTML = '';
 
   data.forEach((group, idx) => {
-    const { company, website } = group;
+    const { company, source, articles } = group;
 
     const groupDiv = document.createElement('div');
     groupDiv.className = 'company-group';
@@ -125,16 +103,44 @@ function renderCompanies(data = companies) {
 
     const scanBtn = document.createElement('button');
     scanBtn.textContent = 'Scan';
-    scanBtn.addEventListener('click', () => { scan(idx) });
+    scanBtn.addEventListener('click', () => {
+      scaneOne(idx);
+    });
     groupDiv.appendChild(scanBtn)
 
-    // articles.forEach(article => {
-    //   const row = renderArticleRow(company, source, article);
-    //   groupDiv.appendChild(row);
-    // });
+    articles.forEach(article => {
+      const row = renderArticleRow(company, source, article);
+      groupDiv.appendChild(row);
+    });
+
+    container.appendChild(groupDiv);
+  })
+}
+
+function renderArticles(data = articleData) {
+  const container = document.getElementById('articles');
+  container.innerHTML = '';
+
+  data.forEach(group => {
+    const { company, source, articles } = group;
+
+    const groupDiv = document.createElement('div');
+    groupDiv.className = 'company-group';
+
+    const title = document.createElement('div');
+    title.className = 'company-title';
+    title.textContent = company;
+
+    groupDiv.appendChild(title);
+
+    articles.forEach(article => {
+      const row = renderArticleRow(company, source, article);
+      groupDiv.appendChild(row);
+    });
 
     container.appendChild(groupDiv);
   })
 }
 
 window.addEventListener('load', fetchCompanies);
+// window.addEventListener('load', fetchArticles);
