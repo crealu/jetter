@@ -3,6 +3,7 @@ let articleData = [];
 let companies = [];
 
 let one = 'https://jetscan-fcaf0aedc4e1.herokuapp.com/scan-one';
+let local = 'http://localhost:8000/scan-one';
 let url = 'https://jetscan-fcaf0aedc4e1.herokuapp.com/scan';
 
 async function getScan() {
@@ -18,7 +19,7 @@ async function scan(i) {
 
   const theBody = { 
     companyIndex: i,
-    website: website,
+    website: website
   };
 
   console.log(theBody);
@@ -97,15 +98,21 @@ function renderArticleRow(companyName, article) {
   return row;
 }
 
-function validateArticles(articles) {
-  return articles == undefined || articles == null;
+function invalidArticles(articles) {
+  if (articles == undefined || articles == null) {
+    return true;
+  } else if (articles && articles[0] == null) {
+    return true;
+  } else if (articles && articles[0] != null) {
+    return false;
+  }
 }
 
 function renderArticles(i, articles) {
   console.log(articles);
   const groupDiv = document.getElementsByClassName('company-group')[i]
 
-  if (!validateArticles(articles)) {
+  if (invalidArticles(articles)) {
     const error = `<br>Unable to scan, please visit <a href="${companies[i].website}" target="_blank">${companies[i].company} News</a>`;
     groupDiv.innerHTML += error;
     return;
