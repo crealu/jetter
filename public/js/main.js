@@ -104,6 +104,8 @@ function invalidArticles(articles) {
     return true;
   } else if (articles && articles[0] == null) {
     return true;
+  } else if (articles && articles[0] == 'incapsula') {
+    return true;
   } else if (articles && articles[0] != null) {
     return false;
   }
