@@ -97,10 +97,19 @@ function renderArticleRow(companyName, article) {
   return row;
 }
 
+function validateArticles(articles) {
+  return articles == undefined || articles == null;
+}
+
 function renderArticles(i, articles) {
   console.log(articles);
-
   const groupDiv = document.getElementsByClassName('company-group')[i]
+
+  if (!validateArticles(articles)) {
+    const error = `<br>Unable to scan, please visit <a href="${companies[i].website}" target="_blank">${companies[i].company} News</a>`;
+    groupDiv.innerHTML += error;
+    return;
+  }
 
   articles.forEach(article => {
     const row = renderArticleRow(companies[i].company, article);
