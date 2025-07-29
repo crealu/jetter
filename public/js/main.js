@@ -156,6 +156,7 @@ function renderCompanies(data = companies) {
     groupDiv.appendChild(title);
 
     const scanBtn = document.createElement('button');
+    scanBtn.className = 'scan-btn';
     scanBtn.textContent = 'Scan';
     scanBtn.addEventListener('click', () => { scan(idx) });
     groupDiv.appendChild(scanBtn)
