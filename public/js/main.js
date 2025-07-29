@@ -41,7 +41,7 @@ async function scan(i) {
     body: JSON.stringify(theBody)
   }
 
-  await fetch(local, options)
+  await fetch(one, options)
     .then(res => res.json())
     .then(data => { renderArticles(i, data.articles) })
     .catch(err => { console.log(err) })
