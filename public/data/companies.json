@@ -82,7 +82,7 @@
     {
         "company": "GE",
         "category": "D",
-        "website": "https://www.genewsroom.com/"
+        "website": "https://www.ge.com/news/press-releases"
     },
     {
         "company": "GE Aerospace",
@@ -90,14 +90,9 @@
         "website": "https://www.geaerospace.com/news"
     },
     {
-        "company": "GE Gas Power",
+        "company": "GE Vernova",
         "category": "D",
-        "website": "https://www.ge.com/gas-power/resources"
-    },
-    {
-        "company": "GE Renewable Energy",
-        "category": "D",
-        "website": "https://www.ge.com/renewableenergy/newsroom/press-releases"
+        "website": "https://www.gevernova.com/news/media-hub"
     },
     {
         "company": "General Dynamics",
