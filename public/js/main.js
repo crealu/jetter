@@ -1,6 +1,7 @@
 const tags = ['Fin', 'Info', 'Conf', 'Sales', 'Met', 'MA', 'Org'];
 let articleData = [];
 let companies = [];
+let loading = false;
 
 let one = 'https://jetscan-fcaf0aedc4e1.herokuapp.com/scan-one';
 let local = 'http://localhost:8000/scan-one';
@@ -13,7 +14,16 @@ async function getScan() {
     .catch(err => { console.log(err) })
 }
 
+function setLoading(index) {
+  const groupDiv = document.getElementsByClassName('company-group')[index];
+  let loadingP = document.createElement('p');
+  loadingP.textContent = 'Loading...';
+  groupDiv.appendChild(loadingP);
+}
+
 async function scan(i) {
+  setLoading(i);
+
   const { website } = companies[i];
   const filterDate = document.getElementById('filter-date').value;
 
@@ -31,7 +41,7 @@ async function scan(i) {
     body: JSON.stringify(theBody)
   }
 
-  await fetch(one, options)
+  await fetch(local, options)
     .then(res => res.json())
     .then(data => { renderArticles(i, data.articles) })
     .catch(err => { console.log(err) })
@@ -125,6 +135,9 @@ function renderArticles(i, articles) {
     const row = renderArticleRow(companies[i].company, article);
     groupDiv.appendChild(row);
   });
+
+  let theP = groupDiv.getElementsByTagName('p')[0];
+  groupDiv.removeChild(theP);
 }
 
 function renderCompanies(data = companies) {
