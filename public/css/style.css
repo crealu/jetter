@@ -2,6 +2,7 @@
   --blue-1: #04519b;
   --blue-2: #03386a;
   --blue-3: #e6f1f3;
+  --blue-4: #a9c4f8;
 }
 
 body { 
@@ -59,6 +60,20 @@ h3 {
   margin: 1em 0 0.5em;
   background: var(--blue-3);
   padding: 10px 0px;
+}
+
+.scan-btn {
+  width: 100px;
+  padding: 14px 4px;
+  background: var(--blue-4);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.scan-btn:hover {
+  background: var(--blue-1);
 }
 
 .row {
