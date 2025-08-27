@@ -200,6 +200,34 @@ h3 {
   display: flex;
 }
 
+.archive-title {
+  width: 150px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.archive-type {
+  width: 50px;
+}
+
+.archive-info {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.archive-date {
+  width: 90px;
+}
+
+.archive-link {
+  position: relative;
+  float: right;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
 #articles {
   display: block;
   position: relative;

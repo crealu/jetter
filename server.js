@@ -32,7 +32,7 @@ app.get('/scan', (req, res) => {
 });
 
 app.post('/year', (req, res) => {
-  let filename = `articles${req.body}.json`
+  let filename = `articles${req.body.year}.json`
   console.log(filename)
   res.sendFile(filename, { root: './public/data/archive' });
 })

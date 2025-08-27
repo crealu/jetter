@@ -7,54 +7,72 @@ function renderResults(data) {
   const container = document.getElementById('articles');
   container.innerHTML = '';
 
-  data.forEach(item => {
+  data.forEach((item, idx) => {
     const { company, title, link, date, type } = item;
     const row = document.createElement('div');
     row.className = 'row';
 
+    if (idx % 2 == 0) {
+      row.classList.add('row-blue');
+    }
+
     const subject = document.createElement('p');
     subject.textContent = company;
-    subject.className = 'title';
+    subject.className = 'archive-title';
 
     const info = document.createElement('div');
-    info.className = 'info';
+    info.className = 'archive-info';
 
-    const typeSpan = document.createElement('span');
+    const typeSpan = document.createElement('p');
     typeSpan.textContent = type;
+    typeSpan.className = 'archive-type';
 
-    const dateSpan = document.createElement('span');
-    dateSpan.textContent = article.date;
-    dateSpan.className = 'date'
+    const dateSpan = document.createElement('p');
+    dateSpan.textContent = item.date;
+    dateSpan.className = 'archive-date'
 
     const a = document.createElement('a');
-    a.href = article.link;
-    a.textContent = article.title;
+    a.href = item.link;
+    a.textContent = item.title;
     a.target = '_blank';
-    a.className = 'article'
+    a.className = 'archive-link';
 
-    info.append(typeSpan, dateSpan, a)
-    row.append(subject, info)
+    info.append(subject, typeSpan, dateSpan, a)
+    row.append(info)
     container.appendChild(row);
-  }
+  })
 }
 
 async function fetchByYear(event) {
   let year = event.target.value;
 
+  if (year == 'All') {
+    return;
+  }
+
+  let theBody = {
+    year: year
+  }
+
   const options = {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(year)
+    body: JSON.stringify(theBody)
   }
 
   await fetch('/year', options)
     .then(res => res.json())
-    .then(data => { renderResults(data) })
+    .then(data => { 
+      console.log(data) 
+      renderResults(data) 
+    })
     .catch(err => { console.log(err) })
 }
 
 yearFilter.addEventListener('change', fetchByYear)
 
+
+// old
 async function fetchArticles() {
   const res = await fetch('/viewer');
   articleData = await res.json();
