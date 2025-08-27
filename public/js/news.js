@@ -5,7 +5,6 @@ let yearFilter = document.getElementById('filter-year')
 let filterBtn = document.getElementsByClassName('filter-btn')[0]
 
 function renderResults(data) {
-  resultData = data;
   const container = document.getElementById('articles');
   container.innerHTML = '';
 
@@ -65,7 +64,7 @@ async function fetchByYear(event) {
   await fetch('/year', options)
     .then(res => res.json())
     .then(data => { 
-      console.log(data) 
+      resultData = data;
       renderResults(data) 
     })
     .catch(err => { console.log(err) })
@@ -77,22 +76,29 @@ function filterResults() {
   const date = document.getElementById('filter-date').value;
   const year = document.getElementById('filter-year').value;
 
+  console.log(company)
+
   const filtered = resultData.filter(item => {
     const resultDate = new Date(item.date);
-    
+
     return (
-      (!company || item.company === company) &&
-      (!tag || item.type === tag) &&
-      (!date || resultDate >= new Date(date)) &&
-      (!year || resultDate.getFullYear().toString() === year)
-    );
+      (company == '' || item.company === company) &&
+      (tag == '' || item.type === tag) &&
+      (date == '' || resultDate >= new Date(date)) &&
+      (year == '' || resultDate.getFullYear().toString() === year)
+    )
   })
 
-  console.log(filtered);
+  renderResults(filtered);
+}
+
+function fetchLatest() {
+  fetchByYear({ target: { value: 2025 } });
 }
 
 yearFilter.addEventListener('change', fetchByYear)
 filterBtn.addEventListener('click', filterResults)
+window.addEventListener('load', fetchLatest);
 
 // old
 async function fetchArticles() {
