@@ -169,7 +169,8 @@ h3 {
   margin-top: 20px;
 }
 */
-#filters {
+
+.filters {
   position: relative;
   margin: 0 auto;
   width: 90%;
@@ -185,10 +186,18 @@ h3 {
   padding: 10px;
 }
 
-#filters label {
+.filters label {
   display: flex;
   flex-direction: column;
   font-size: 0.9em;
+}
+
+#scan-filters {
+  display: none;
+}
+
+#archive-filters {
+  display: block;
 }
 
 #articles {
