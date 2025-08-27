@@ -31,6 +31,12 @@ app.get('/scan', (req, res) => {
   res.sendFile('scan.html', {root: './public'});
 });
 
+app.post('/year', (req, res) => {
+  let filename = `articles${req.body}.json`
+  console.log(filename)
+  res.sendFile(filename, { root: './public/data/archive' });
+})
+
 app.get('/companies', (req, res) => {
   res.sendFile('companies.json', {root: './public/data'});
 })
