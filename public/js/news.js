@@ -1,9 +1,11 @@
 // const tags = ['Fin', 'Info', 'Conf', 'Sales', 'Met', 'MA', 'Org'];
 let articleData = [];
-
+let resultData = [];
 let yearFilter = document.getElementById('filter-year')
+let filterBtn = document.getElementsByClassName('filter-btn')[0]
 
 function renderResults(data) {
+  resultData = data;
   const container = document.getElementById('articles');
   container.innerHTML = '';
 
@@ -69,8 +71,28 @@ async function fetchByYear(event) {
     .catch(err => { console.log(err) })
 }
 
-yearFilter.addEventListener('change', fetchByYear)
+function filterResults() {
+  const company = document.getElementById('filter-company').value;
+  const tag = document.getElementById('filter-tag').value;
+  const date = document.getElementById('filter-date').value;
+  const year = document.getElementById('filter-year').value;
 
+  const filtered = resultData.filter(item => {
+    const resultDate = new Date(item.date);
+    
+    return (
+      (!company || item.company === company) &&
+      (!tag || item.type === tag) &&
+      (!date || resultDate >= new Date(date)) &&
+      (!year || resultDate.getFullYear().toString() === year)
+    );
+  })
+
+  console.log(filtered);
+}
+
+yearFilter.addEventListener('change', fetchByYear)
+filterBtn.addEventListener('click', filterResults)
 
 // old
 async function fetchArticles() {
@@ -163,32 +185,34 @@ function renderArticles(data = articleData) {
 //   console.log(event.target.value)
 // })
 
+
+
 function applyFilters() {
   const company = document.getElementById('filter-company').value;
   const tag = document.getElementById('filter-tag').value;
   const date = document.getElementById('filter-date').value;
   const year = document.getElementById('filter-year').value;
 
-  const filtered = articleData
-    .map(group => {
-      const filteredArticles = group.articles.filter(article => {
-        const articleDate = new Date(article.date);
+  const filtered = articleData.map(group => {
+    const filteredArticles = group.articles.filter(article => {
+      const articleDate = new Date(article.date);
 
-        return (
-          (!company || group.company === company) &&
-          (!tag || article.selectedTag === tag) &&
-          (!date || articleDate >= new Date(date)) &&
-          (!year || articleDate.getFullYear().toString() === year)
-        );
-      });
+      return (
+        (!company || group.company === company) &&
+        (!tag || article.selectedTag === tag) &&
+        (!date || articleDate >= new Date(date)) &&
+        (!year || articleDate.getFullYear().toString() === year)
+      );
+    });
 
-      return filteredArticles.length > 0
-        ? { company: group.company, source: group.source, articles: filteredArticles }
-        : null;
-    })
-    .filter(Boolean); // remove nulls
+    return filteredArticles.length > 0
+      ? { company: group.company, source: group.source, articles: filteredArticles }
+      : null;
+  })
+  .filter(Boolean); // remove nulls
 
-  renderArticles(filtered);
+  // renderArticles(filtered);
+  // renderResults(filtered);
 }
 
 // fetchArticles();
