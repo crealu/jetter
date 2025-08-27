@@ -197,7 +197,7 @@ h3 {
 }
 
 #archive-filters {
-  display: block;
+  display: flex;
 }
 
 #articles {
