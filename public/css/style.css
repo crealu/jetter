@@ -237,3 +237,20 @@ h3 {
   width: 90%;
   padding: 10px;
 }
+
+/* view */
+svg {
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  padding: 50px;
+}
+
+.tooltip {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 5px;
+  font-size: 12px;
+  pointer-events: none;
+}
