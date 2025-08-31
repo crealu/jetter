@@ -27,25 +27,43 @@
         .attr("stroke-width", 1.5)
     }
 
-    const svg = d3.select("svg"),
-          margin = {top: 20, right: 30, bottom: 40, left: 50},
-          width = +svg.attr("width") - margin.left - margin.right,
-          height = +svg.attr("height") - margin.top - margin.bottom;
+    const svg = d3.select("svg");
+    const margin = {top: 30, right: 0, bottom: 40, left: 50}
+    const width = svg.attr("width");
+    const height = svg.attr("height") - margin.top - margin.bottom;
 
-    const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+    // svg.append("defs")
+    //   .append("clipPath")
+    //   .attr("id", "cp1")
+    //   .append("rect")
+    //   .attr("width", 700)
+    //   .attr("height", 300)
+    //   .attr("x", 10)
+    //   .attr("y", 30)
+
+    const g = svg.append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`)
+      .attr("clip-path", "url(#cp1)");
+
+    // g.className = 'graph'
+
+    let realG = g._groups[0][0];
+    realG.style.overflow = 'none';
+    // console.dir(g._groups[0][0].classList.add('graph'))
+
 
     // Chart title
-    svg.append("text")
-      .attr("x", (width + 50) / 2)
-      .attr("y", 20)
-      .attr("text-anchor", "middle")
-      .style("font-size", "16px")
-      .style("font-weight", "bold")
-      .text("Company Stock Performance with Article Dates");
+    // svg.append("text")
+    //   .attr("x", (width + 50) / 2)
+    //   .attr("y", 20)
+    //   .attr("text-anchor", "middle")
+    //   .style("font-size", "16px")
+    //   .style("font-weight", "bold")
+    //   .text("Company Stock Performance with Article Dates");
 
     // X-axis label
     svg.append("text")
-      .attr("x", (width+50) / 2)
+      .attr("x", (width + 40) / 2)
       .attr("y", height + 60)
       .attr("text-anchor", "middle")
       .style("font-size", "12px")
@@ -123,7 +141,6 @@
       .attr("r", 5)
       .attr("fill", "orange")
       .on("mouseover", (event, d, idx) => {
-        console.log()
         tooltip.transition().style("opacity", 1);
         tooltip.html(d.title + "<br>" + d.date.toDateString())
           .style("left", (event.pageX + 5) + "px")
@@ -143,6 +160,15 @@
       .translateExtent([[0, 0], [width, height]])
       .extent([[0, 0], [width, height]])
       .on("zoom", zoomed);
+
+    g.append("defs")
+      .append("clipPath")
+      .attr("id", "cp1")
+      .append("rect")
+      .attr("width", 700)
+      .attr("height", 300)
+      .attr("x", 10)
+      .attr("y", 30)
 
     svg.call(zoom);
 
