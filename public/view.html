@@ -4,10 +4,6 @@
   <meta charset="UTF-8">
   <title>Jetter | View</title>
   <link rel="stylesheet" type="text/css" href="./css/style.css">
-  <style>
-
-
-  </style>
 </head>
 <body>
   <nav>
@@ -23,18 +19,11 @@
   </section>
 
   <div class="sub-heading">
-    <h3>Industry News</h3>
-    <p>A compiled list of recent press releases and news is shown below.<br>Use the filters to find specific articles.</p>
+    <h3>Industry News Insights</h3>
+    <p>Use the interactive plot below to observe industry insights by visualizing patterns with company and market data.</p>
   </div>
 
-  <div id="companies">
-    <button onclick="scanSelect()">Scan Select</button>
-    <button onclick="scanAll()">Scan All</button>
-  </div>
-
-  <div id="articles"></div>
-
-  <svg width="800" height="400"></svg>
+  <svg class="plot-1" width="800" height="400"></svg>
   <div class="tooltip" style="opacity:0"></div>
 
   <script src="https://d3js.org/d3.v7.min.js"></script>
