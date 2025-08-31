@@ -27,8 +27,8 @@ app.get('/news', (req, res) => {
   res.sendFile('news.html', {root: './public'});
 });
 
-app.get('/scan', (req, res) => {
-  res.sendFile('scan.html', {root: './public'});
+app.get('/view', (req, res) => {
+  res.sendFile('view.html', {root: './public'});
 });
 
 app.post('/year', (req, res) => {
