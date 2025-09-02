@@ -36,6 +36,10 @@ app.get('/steel', (req, res) => {
   res.sendFile('stainless steel ppi.json', { root: './public/data/price' });
 });
 
+app.get('/stocks', (req, res) => {
+  res.sendFile('boeing stock data.json', { root: './public/data/price' });
+})
+
 app.get('/lockheed', (req, res) => {
   let filtered = filterArticles('Lockheed Martin');
   res.send(JSON.stringify(filtered));
