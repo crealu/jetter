@@ -33,7 +33,7 @@ function renderView2(priceData, articleData) {
     .attr("x", -220)
     .attr("text-anchor", "middle")
     .style("font-size", "14px")
-    .text("Stainless Steel (PPI)");
+    .text("Stock Prices (USD)");
   const parseDate = d3.timeParse("%Y-%m-%d");
 
   priceData.forEach(d => {
