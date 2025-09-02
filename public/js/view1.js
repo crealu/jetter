@@ -30,7 +30,7 @@ function appendLine(data) {
 let prices = []
 let articles = []
 
-const svg = d3.select("svg");
+const svg = d3.select(".plot-2");
 const margin = {
   top: 50, 
   right: 50, 
@@ -193,7 +193,7 @@ async function fetchSteel() {
 
 async function fetchParallel() {
   let obj = {
-    company: 'Boeing'
+    company: 'Lockheed Martin'
   }
 
   let options = {
