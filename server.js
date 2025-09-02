@@ -5,6 +5,7 @@ const { MongoClient } = require('mongodb');
 const { saveArticles } = require('./routes/publish');
 const { readScanned } = require('./routes/scan');
 const { viewArticles } = require('./routes/view');
+const { filterArticles } = require('./routes/filter');
 
 const app = express();
 const port = process.env.PORT || 7700;
@@ -19,10 +20,6 @@ app.get('/', (req, res) => {
   res.sendFile('index.html', {root: './public'});
 });
 
-app.get('/admin', (req, res) => {
-  res.sendFile('admin.html', {root: './public'});
-});
-
 app.get('/news', (req, res) => {
   res.sendFile('news.html', {root: './public'});
 });
@@ -31,9 +28,21 @@ app.get('/view', (req, res) => {
   res.sendFile('view.html', {root: './public'});
 });
 
+// app.get('/admin', (req, res) => {
+//   res.sendFile('admin.html', {root: './public'});
+// });
+
+app.get('/steel', (req, res) => {
+  res.sendFile('stainless steel ppi.json', { root: './public/data/price' });
+});
+
+app.get('/lockheed', (req, res) => {
+  let filtered = filterArticles();
+  res.send(JSON.stringify(filtered));
+})
+
 app.post('/year', (req, res) => {
   let filename = `articles${req.body.year}.json`
-  console.log(filename)
   res.sendFile(filename, { root: './public/data/archive' });
 })
 
