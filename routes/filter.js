@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = {
-	filterArticles: () => {
+	filterArticles: (companyName) => {
 		const compiledData = [];
 		let fileNames = [];
 
@@ -30,7 +30,7 @@ module.exports = {
 		  }
 		});
 
-		let filtered = compiledData.filter(article => article.company == 'Lockheed Martin')
+		let filtered = compiledData.filter(article => article.company == companyName)
 
 		return filtered;
 	}

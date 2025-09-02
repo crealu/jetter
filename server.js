@@ -37,8 +37,13 @@ app.get('/steel', (req, res) => {
 });
 
 app.get('/lockheed', (req, res) => {
-  let filtered = filterArticles();
+  let filtered = filterArticles('Lockheed Martin');
   res.send(JSON.stringify(filtered));
+});
+
+app.post('/articles', (req, res) => {
+  const filtered = filterArticles(req.body.company);
+  res.send(JSON.stringify(filtered))
 })
 
 app.post('/year', (req, res) => {
