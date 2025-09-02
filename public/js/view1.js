@@ -71,7 +71,7 @@ svg.append("text")
   .style("font-size", "14px")
   .text("Stainless Steel (PPI)");
 
-function renderData(priceData, articleData) {
+function renderView1(priceData, articleData) {
   const parseDate = d3.timeParse("%Y-%m-%d");
 
   priceData.forEach(d => {
@@ -192,8 +192,19 @@ async function fetchSteel() {
 }
 
 async function fetchParallel() {
+  let obj = {
+    company: 'Boeing'
+  }
+
+  let options = {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(obj)
+  }
+
   const [res1, res2] = await Promise.all([
-    fetch('/lockheed'),
+    // fetch('/lockheed'),
+    fetch('/articles', options),
     fetch('/steel')
   ]);
 
@@ -212,7 +223,7 @@ async function fetchParallel() {
   console.log(articles)
   console.log(prices)
 
-  await renderData(prices, articles)
+  await renderView1(prices, articles)
 }
 
 window.addEventListener('load', fetchParallel);
