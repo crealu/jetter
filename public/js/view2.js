@@ -1,68 +1,8 @@
-function getPriceAtDate(data, date) {
-  // assume data is sorted by date
-  const i = d3.bisector(d => d.date).left(data, date);
-  if (i === 0) return data[0].price;
-  if (i >= data.length) return data[data.length - 1].price;
+let stocks = []
+let articles2 = []
 
-  const d0 = data[i - 1];
-  const d1 = data[i];
-
-  // linear interpolation
-  const t = (date - d0.date) / (d1.date - d0.date);
-  return d0.price + t * (d1.price - d0.price);
-}
-
-// function appendLine(data) {
-//   const offsetDate = x.invert(x(d.date) + 50);
-
-//   svg.append("line")
-//     .datum(data)
-//     .attr("class", "hover-bar")
-//     .attr("x1", x(offsetDate))
-//     .attr("x2", x(offsetDate))
-//     // .attr("y1", d => y(d3.mean(stockData, d => d.price)) + 23)
-//     .attr("y1", d => y(getPriceAtDate(stockData, d => d.date)))
-//     .attr("y2", y.range()[0] + 20)
-//     .attr("stroke", "orange")
-//     .attr("stroke-width", 1.5)
-// }
-
-let prices = []
-let articles = []
-const margin = {
-  top: 50, 
-  right: 50, 
-  bottom: 50, 
-  left: 50
-}
-const tooltip = d3.select(".tooltip");
-
-
-
-
-// const g = svg.append("g")
-//   .attr("transform", `scale(1) translate(60,60)`)
-//   .attr("clip-path", "url(#cp1)");
-
-// // X-axis label
-// svg.append("text")
-//   .attr("x", (width / 2) + 40)
-//   .attr("y", height + 120)
-//   .attr("text-anchor", "middle")
-//   .style("font-size", "14px")
-//   .text("Date");
-
-// // Y-axis label
-// svg.append("text")
-//   .attr("transform", "rotate(-90)")
-//   .attr("y", 12)
-//   .attr("x", -220)
-//   .attr("text-anchor", "middle")
-//   .style("font-size", "14px")
-//   .text("Stainless Steel (PPI)");
-
-function renderView1(priceData, articleData) {
-  const svg = d3.select(".plot-1");
+function renderView2(priceData, articleData) {
+  const svg = d3.select(".plot-2");
   const width = svg.attr("width");
   const height = svg.attr("height") - margin.top - margin.bottom;
   const g = svg.append("g")
@@ -193,9 +133,9 @@ async function fetchSteel() {
     .catch(err => { console.log(err) })
 }
 
-async function fetchParallel1() {
+async function fetchParallel2() {
   let obj = {
-    company: 'Lockheed Martin'
+    company: 'Boeing'
   }
 
   let options = {
@@ -205,27 +145,24 @@ async function fetchParallel1() {
   }
 
   const [res1, res2] = await Promise.all([
-    // fetch('/lockheed'),
     fetch('/articles', options),
-    fetch('/steel')
+    fetch('/stocks')
   ]);
 
-  articles = await res1.json()
+  articles2 = await res1.json()
   const data = await res2.json()
 
-  prices = data.prices;
+  stocks = data.prices;
 
-  articles = articles.map(article => {
+  articles2 = articles2.map(article => {
     let mdy = article.date.split('.')
     let dateString = mdy[2].replace(' ', '') + '-' + mdy[0] + '-' + mdy[1];
     article.date = dateString
     return article
   });
 
-  console.log(articles)
-  console.log(prices)
-
-  await renderView1(prices, articles)
+  await renderView2(stocks, articles2)
 }
 
-window.addEventListener('load', fetchParallel1);
+// fetchParallel2()
+window.addEventListener('load', fetchParallel2);
