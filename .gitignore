@@ -3,3 +3,5 @@ node_modules
 db
 data/all.json
 js/backup.js
+claude test.txt
+initial.js
