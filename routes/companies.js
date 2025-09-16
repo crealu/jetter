@@ -12,7 +12,7 @@ module.exports = {
       const co = db.collection('companies');
 
       const docs = await co.find().toArray();
-      response.send(docs);
+      res.send(docs);
 
     } finally {
       await client.close();
@@ -32,7 +32,7 @@ module.exports = {
           return console.log(err)
         }
 
-        response.send({message: 'Submission successful'})
+        res.send({message: 'Submission successful'})
       }
 
       await co.insert(req.data, cb)

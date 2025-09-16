@@ -6,6 +6,7 @@ const { saveArticles } = require('./routes/publish');
 const { readScanned } = require('./routes/scan');
 const { viewArticles } = require('./routes/view');
 const { filterArticles } = require('./routes/filter');
+const { getCompanies } = require('./routes/companies');
 
 const app = express();
 const port = process.env.PORT || 7700;
@@ -56,7 +57,8 @@ app.post('/year', (req, res) => {
 })
 
 app.get('/companies', (req, res) => {
-  res.sendFile('companies.json', {root: './public/data'});
+  getCompanies(req, res);
+  // res.sendFile('companies.json', {root: './public/data'});
 })
 
 app.get('/scanner', (req, res) => {
